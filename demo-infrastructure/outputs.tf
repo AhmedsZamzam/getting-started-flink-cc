@@ -75,17 +75,24 @@ output "flink_rest_endpoint" {
   value = data.confluent_flink_region.flink_region.rest_endpoint
 }
 
-resource "local_file" "environment_variables_file" {
-  filename = terraform.workspace == "windows" ? "env.bat" : "env.sh"
-  content = <<-EOT
-%{ if terraform.workspace == "windows" }
-set env_id="${confluent_environment.env.id}"
-set flink_compute_pool_id="${confluent_flink_compute_pool.default.id}"
-set cloud_region="${var.cloud_region}"
-%{ else }
-export env_id="${confluent_environment.env.id}"
-export flink_compute_pool_id="${confluent_flink_compute_pool.default.id}"
-export cloud_region="${var.cloud_region}"
-%{ endif }
+locals {
+  # Check for both path separator and Windows drive letter
+  is_windows = substr(pathexpand("~/"), 0, 1) == "/" ? false : true
+  
+  windows_content = <<-EOT
+set env_id=${confluent_environment.env.id}
+set flink_compute_pool_id=${confluent_flink_compute_pool.default.id}
+set cloud_region=${var.cloud_region}
 EOT
+
+  unix_content = <<-EOT
+export env_id=${confluent_environment.env.id}
+export flink_compute_pool_id=${confluent_flink_compute_pool.default.id}
+export cloud_region=${var.cloud_region}
+EOT
+}
+
+resource "local_file" "environment_variables_file" {
+  filename = local.is_windows ? "env.bat" : "env.sh"
+  content  = local.is_windows ? local.windows_content : local.unix_content
 }

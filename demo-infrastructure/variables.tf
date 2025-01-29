@@ -1,7 +1,6 @@
 variable "prefix" {
-  description = "Prefix for resource names"
+  description = "Prefix for resource names with your initials"
   type        = string
-  default     = "shiftleft"
 }
 
 variable "cloud_region"{

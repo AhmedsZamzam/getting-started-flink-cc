@@ -7,32 +7,32 @@ SELECT * FROM
  order_id, 
  RAND_INTEGER(100000) AS customer_id,
  TIMESTAMPADD(SECOND, 240, `$rowtime`) AS request_time
-FROM `examples`.`marketplace`.orders WHERE RAND() > 0.9)
+FROM `examples`.`marketplace`.orders WHERE EXTRACT(MILLISECOND FROM `$rowtime`) > 950)
 UNION ALL
 (SELECT 
  UUID() AS request_id, 
  order_id, 
  RAND_INTEGER(100000) AS customer_id,
  TIMESTAMPADD(SECOND, 240, `$rowtime`) AS request_time
-FROM  `examples`.`marketplace`.orders WHERE RAND() > 0.9)
+FROM  `examples`.`marketplace`.orders WHERE EXTRACT(MILLISECOND FROM `$rowtime`) > 950)
 UNION ALL
 (SELECT 
  UUID() AS request_id, 
  order_id, 
  RAND_INTEGER(100000) AS customer_id,
  TIMESTAMPADD(SECOND, 240, `$rowtime`) AS request_time
-FROM  `examples`.`marketplace`.orders WHERE RAND() > 0.9)
+FROM  `examples`.`marketplace`.orders WHERE EXTRACT(MILLISECOND FROM `$rowtime`) > 950)
 UNION ALL
 (SELECT 
  UUID() AS request_id, 
  order_id, 
  RAND_INTEGER(100000) AS customer_id,
  TIMESTAMPADD(SECOND, 240, `$rowtime`) AS request_time
-FROM  `examples`.`marketplace`.orders WHERE RAND() > 0.9);
+FROM  `examples`.`marketplace`.orders WHERE EXTRACT(MILLISECOND FROM `$rowtime`) > 950);
 INSERT INTO `orders`
-(SELECT order_id, customer_id, product_id, price FROM `examples`.`marketplace`.orders)
+(SELECT order_id, customer_id, product_id, price FROM `examples`.`marketplace`.orders WHERE EXTRACT(MILLISECOND FROM `$rowtime`) > 950)
 UNION ALL
-(SELECT order_id, customer_id, product_id, price FROM `examples`.`marketplace`.orders WHERE RAND() > 0.9);
+(SELECT order_id, customer_id, product_id, price FROM `examples`.`marketplace`.orders WHERE EXTRACT(MILLISECOND FROM `$rowtime`) > 950 AND RAND() > 0.9);
 INSERT INTO order_status
 WITH order_fullfilment_base AS 
 (SELECT 
@@ -41,7 +41,7 @@ WITH order_fullfilment_base AS
   RAND_INTEGER(30) AS shipment_delay,
   RAND_INTEGER(90) AS delivery_delay, 
   `$rowtime`
-FROM `examples`.`marketplace`.`orders`)
+FROM `examples`.`marketplace`.`orders` WHERE EXTRACT(MILLISECOND FROM `$rowtime`) > 950)
 SELECT * 
 FROM
   (SELECT order_id, 'CREATED' as order_status,`$rowtime` AS update_time FROM order_fullfilment_base)
@@ -59,5 +59,5 @@ SELECT
   ROUND(price * RAND()*50,2) AS amount,
   ARRAY['EUR','USD','JPY','GBP', 'AUD', 'CAD', 'CHF' ,'CNH', 'HKD', 'NZD'][RAND_INTEGER(10)+1] AS currency, 
   TIMESTAMPADD(SECOND, 32, `$rowtime`)
-FROM `examples`.`marketplace`.`orders`;
+FROM `examples`.`marketplace`.`orders` WHERE EXTRACT(MILLISECOND FROM `$rowtime`) > 950;
 END;
