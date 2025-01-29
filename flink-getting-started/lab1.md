@@ -6,6 +6,8 @@ This lab centers on a third-party reseller that offers products from major vendo
 We'll join order data with customer and product data, then sink the resulting dataset into an Amazon OpenSearch domain.
 
 
+![image](img/hld.png)
+
 ## Prerequisites
 
 All required resources in Confluent Cloud must be already created for this lab to work correctly. If you haven't already, please follow the [Demo environment setup](../README.md).
@@ -38,7 +40,7 @@ In [Confluent Cloud Cluster UI](https://confluent.cloud/go/clusters), pick your 
 
 - **`clicks`**: Tracks customer clicks, including product and action details.  
 - **`customers`**: Contains customer data (Customer CRM)
-- **`customer_inquiries`**: Contains customer inquiries on different products.  
+- **`customer_inquiries`**: Contains customer inquiries associated with Orders.  
 - **`order_status`**: Represents the status of each order with the following possible values: `CREATED`, `PAID`, `SHIPPED`, and `DELIVERED`.  
 - **`orders`**: Logs real-time order transactions (Billing System).  
 - **`payments`**: Records all payments made, associated with specific orders.  
@@ -147,6 +149,8 @@ You can find more information about all parameters  [here.](https://docs.conflue
 
 ### 4. Deduplication
 
+![image](img/hld1.png)
+
 Let’s take a closer look at the orders. 
 
 ```sql
@@ -240,6 +244,8 @@ We will now use the newly created table `unique_orders` throughout the workshop.
 
 ### 5. Flink Joins
 
+![image](img/hld2.png)
+
 Flink SQL supports complex and flexible join operations over dynamic tables. There are a number of different types of joins to account for the wide variety of semantics that queries may require.
 
 > You can find more information about Flink SQL Joins [here.](https://docs.confluent.io/cloud/current/flink/reference/queries/joins.html)
@@ -318,6 +324,8 @@ SELECT * FROM valid_orders;
 We will now use `valid_orders` for the rest of the workshop.
 
 ### 6. Data Enrichment
+
+![image](img/hld3.png)
  
 We will join data from: Valid Orders, Customer, Product tables together in a single SQL statement. And insert them into a new data product: `order_customer_product`
 
@@ -360,6 +368,8 @@ SELECT * FROM order_customer_product;
 **We have now created a new data product `order_customer_product` from an existing data product `valid_orders`. This is the power data portability.**
 
 ### 7. Sink Connectors
+
+![image](img/hld4.png)
 
 Let's sink this data product to Amazon S3:
 
