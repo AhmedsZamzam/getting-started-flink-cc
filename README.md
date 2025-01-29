@@ -11,7 +11,6 @@ The demo illustrates how Confluent Cloud can be used to filter, enrich, and tran
 * **Confluent Cloud API Keys** - [Cloud resource management API Keys](https://docs.confluent.io/cloud/current/security/authenticate/workload-identities/service-accounts/api-keys/overview.html#resource-scopes) with Organisation Admin permissions
 * **Terraform (v1.9.5+)** - The demo resources is automatically created using [Terraform](https://www.terraform.io).
 * **Git CLI** - Git CLI to clone the repo 
-* **Confluent CLI** - Confluent CLI if Flink shell will be used.
 
 <details>
 <summary>Installing CLI tools on MAC</summary>
@@ -20,11 +19,6 @@ Install `git` and `terraform` by running:
 
 ```bash
 brew install git terraform
-```
-
-[Optional] Install `confluent` CLI by running:
-```bash
-brew install confluent
 ```
 
 
@@ -40,10 +34,7 @@ Install `git` and `terraform` by running:
 winget install --id Git.Git -e
 winget install --id Hashicorp.Terraform -e
 ```
-[Optional] Install `confluent` CLI by running:
-```
-winget install --id ConfluentInc.Confluent-CLI -e
-```
+
 </details> 
 
 
@@ -55,7 +46,7 @@ winget install --id ConfluentInc.Confluent-CLI -e
 First, clone the repo and change directory to `demo-infrastructure`
 
 ```bash
-git clone <repo_url>
+git clone https://github.com/AhmedsZamzam/getting-started-flink-cc.git
 cd flink-cc-demo/demo-infrastructure
 ```
 
@@ -85,7 +76,7 @@ terraform apply --auto-approve
 First, clone the repo and change directory to `demo-infrastructure`
 
 ```bash
-git clone <repo_url>
+git clone https://github.com/AhmedsZamzam/getting-started-flink-cc.git
 cd flink-cc-demo\demo-infrastructure
 ```
 
