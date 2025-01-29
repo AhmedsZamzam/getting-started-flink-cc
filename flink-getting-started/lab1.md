@@ -78,8 +78,7 @@ AWS Pools take 1-2 minutes. Azure Pools can take 5-7 minutes.
 
 
 ## 2. Connecting to Flink 
-You can use your web browser or SQL shell to enter Flink SQL statements.
-  * **Web UI** - In [Flink UI](https://confluent.cloud/go/flink), choose the environment `<prefix>-prod-<random_id>`, then click on `Open SQL Workspace` for the `default` pool.
+You can use your web browser or SQL shell to enter Flink SQL statements. On the same page, click on `Open SQL Workspace` for the `default` pool.
 
 
     ![image](img/flinkpool_openworkspace.png)
@@ -103,15 +102,6 @@ We will now work in the default SQL Workpace using `default` Flink Compute Pool:
 Make sure you set with the right default  catalog (=environment) and database (=`marketplace`).
 
 ![image](img/sql_workspace.png)
-
-
-If you are using console client you can set your default catalog and database via:
-```
-USE CATALOG <MY CONFLUENT ENVIRONMENT NAME>;
-```
-```
-USE <MY CONFLUENT KAFKA CLUSTER NAME>;
-```
 
 Check if you can see your catalog (=Environment) and databases (=Kafka Clusters):
 ```
