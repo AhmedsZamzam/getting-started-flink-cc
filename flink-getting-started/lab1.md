@@ -59,7 +59,7 @@ In [Flink UI](https://confluent.cloud/go/flink), choose the Environment and chec
 - **`data-generation`**: Contains the Flink statements used to generate the lab data.  
 - **`default`**: the pool we will use to run the ad-hoc queries in this lab.
 
-![image](img/flinkpool.png)
+  ![image](img/flinkpool.png)
 
 <details> 
 <summary>[OPTIONAL] Creating a Flink Compute Pool</summary>
@@ -103,15 +103,8 @@ Make sure you set with the right default  catalog (=environment) and database (=
 
 ![image](img/sql_workspace.png)
 
-Check if you can see your catalog (=Environment) and databases (=Kafka Clusters):
-```
-SHOW CATALOGS;
-```
-```
-SHOW DATABASES;
-```
 
-List all tables (=Kafka topics) in this database (=Kafka Cluster):
+List all tables (=Kafka topics) in this database (=Kafka Cluster), by pasting the below in the first cell:
 ```
 SHOW TABLES;
 ```
