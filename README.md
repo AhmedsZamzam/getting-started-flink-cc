@@ -1,7 +1,5 @@
 # Flink CC Demo 
 
-This repository contains infrastructure-as-code and code for https://confluentinc.atlassian.net/wiki/spaces/FLINK/pages/3351249309/Flink+on+Confluent+Cloud+-+Product+Demo.
-
 ## General Requirements
 
 * **Confluent Cloud API Keys** - [Cloud resource management API Keys](https://docs.confluent.io/cloud/current/security/authenticate/workload-identities/service-accounts/api-keys/overview.html#resource-scopes) with Organisation Admin permissions
