@@ -1,5 +1,11 @@
 # Flink CC Demo 
 
+This is a complete end-to-end demo showcasing the power of the Confluent Cloud Data Streaming Platform. It focuses on a third-party reseller that offers products from major vendors like Amazon and Walmart.
+
+The demo illustrates how Confluent Cloud can be used to filter, enrich, and transform online orders in real time. Additionally, it demonstrates seamless integration with existing systems, specifically Amazon OpenSearch.
+
+![image](flink-getting-started/img/hld.png)
+
 ## General Requirements
 
 * **Confluent Cloud API Keys** - [Cloud resource management API Keys](https://docs.confluent.io/cloud/current/security/authenticate/workload-identities/service-accounts/api-keys/overview.html#resource-scopes) with Organisation Admin permissions
