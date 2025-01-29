@@ -57,7 +57,7 @@ With Compute Pools, you don't need to manually size your workload. Simply select
 In [Flink UI](https://confluent.cloud/go/flink), choose the Environment and check if there are two pools created:
 
 - **`data-generation`**: Contains the Flink statements used to generate the lab data.  
-- **`default`**: the pool we will use to run the ad-hoc queries in this lab.
+- **`default`**: **the pool we will use to run this lab**.
 
   ![image](img/flinkpool.png)
 
