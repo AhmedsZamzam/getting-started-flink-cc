@@ -50,16 +50,14 @@ git clone https://github.com/AhmedsZamzam/getting-started-flink-cc.git
 cd flink-cc-demo/demo-infrastructure
 ```
 
-In the `demo-infrastructure` directory, create a `terraform.tfvars` file to store the Confluent Cloud API keys required by Terraform. Replace the placeholders below with your own keys and `{prefix}` with your intials.
+In Finder, navigate to the `demo-infrastructure` directory and open the `terraform.tfvars` file for editing. Replace the placeholders with your own API keys and name.
 
-```bash
-cat > ./terraform.tfvars <<EOF
-confluent_cloud_api_key = "{Confluent Cloud API Key}"
-confluent_cloud_api_secret = "{Confluent Cloud API Key Secret}"
-prefix = "{prefix}"
-EOF
+For example, if your `confluent_cloud_api_key` is `ABCDEFG`, your c`onfluent_cloud_api_secret` is `123456789ABDCEFGHLJKLMNOP=7-23`, and your name is `Kevin`, your file should look like this:
 ```
-
+confluent_cloud_api_key = "ABCDEFG"
+confluent_cloud_api_secret = "123456789ABDCEFGHLJKLMNOP=7-23"
+prefix = "kevin"
+```
 
 In `demo-infrastructure` run the following commands to set up the whole demo environment
 
@@ -80,12 +78,14 @@ git clone https://github.com/AhmedsZamzam/getting-started-flink-cc.git
 cd flink-cc-demo\demo-infrastructure
 ```
 
-In the `demo-infrastructure` directory, create a `terraform.tfvars` file to store the Confluent Cloud API keys required by Terraform. Replace the placeholders below with your own keys and `{prefix}` with your intials.
+In File explorer, navigate to the `demo-infrastructure` directory and open the `terraform.tfvars` file for editing. Replace the placeholders with your own API keys and name.
 
-```bash
-echo confluent_cloud_api_key = "{Confluent Cloud API Key}" > terraform.tfvars
-echo confluent_cloud_api_secret = "{Confluent Cloud API Key Secret}" >> terraform.tfvars
-echo prefix = "{prefix}" >> terraform.tfvars
+For example, if your `confluent_cloud_api_key` is `ABCDEFG`, your c`onfluent_cloud_api_secret` is `123456789ABDCEFGHLJKLMNOP=7-23`, and your name is `Kevin`, your file should look like this:
+
+```
+confluent_cloud_api_key = "ABCDEFG"
+confluent_cloud_api_secret = "123456789ABDCEFGHLJKLMNOP=7-23"
+prefix = "kevin"
 ```
 
 In `demo-infrastructure` run the following commands to set up the whole demo environment
@@ -99,11 +99,15 @@ terraform apply --auto-approve
 
 ## Labs
 
+> NOTE: GO TO LAB1 ON THE ACTUAL WORKSHOP DAY
+
 **Next Lab:** [Lab 1: Getting Started with Flink](./flink-getting-started/lab1.md)
 
 
 
 ## Tear down
+
+> NOTE: TEARDOWN AFTER YOU COMPLETED THE WORKSHOP
 
 In `demo-infrastructure` run the following commands to destroy the whole demo environment
 
