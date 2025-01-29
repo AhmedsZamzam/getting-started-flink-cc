@@ -258,6 +258,10 @@ Checkout records in `valid_orders`
 SELECT * FROM valid_orders;
 ```
 
+Checkout the result of the join in Stream Lineage UI. In the [Conflluent Cloud Cluster UI](https://confluent.cloud/go/clusters), choose your **Environment** (prefixed with you name) and **Cluster**, then navigate to the left-hand pane and click on **Stream Lineage**.
+
+   ![Stream Lineage](./img/stream_lineage1.png)
+
 We will now use `valid_orders` for the rest of the workshop.
 
 ### 6. Data Enrichment
@@ -305,7 +309,9 @@ Verify that the data was joined successfully by creating a new Flink Editor and 
 SELECT * FROM order_customer_product;
 ```
 
-**We have now created a new data product `order_customer_product` from an existing data product `valid_orders`. This is the power data portability.**
+**We have now created a new data product `order_customer_product` from an existing data product `valid_orders`. This is the power data portability.** Checkout the result of the join in Stream Lineage UI. In the [Conflluent Cloud Cluster UI](https://confluent.cloud/go/clusters), choose your **Environment** (prefixed with you name) and **Cluster**, then navigate to the left-hand pane and click on **Stream Lineage**.
+
+   ![Stream Lineage](./img/stream_lineage1.png)
 
 ### 7. Sink Connectors
 
