@@ -80,8 +80,7 @@ AWS Pools take 1-2 minutes. Azure Pools can take 5-7 minutes.
 ## 2. Connecting to Flink 
 You can use your web browser or SQL shell to enter Flink SQL statements. On the same page, click on `Open SQL Workspace` for the `default` pool.
 
-
-    ![image](img/flinkpool_openworkspace.png)
+![image](img/flinkpool_openworkspace.png)
 
 
 
@@ -135,7 +134,7 @@ Let’s take a closer look at the orders.
 SELECT * FROM orders;
 ```
 
-We need to make sure that there are no duplicated in the orders stream. We do not want to process an order twice. Let's check if we have any duplicates.
+We need to make sure that there are no duplicates in the orders stream. We do not want to process an order twice. Let's check if we have any duplicates.
 
 ```sql
 SELECT order_id, COUNT(*) FROM orders GROUP BY order_id;
@@ -175,6 +174,7 @@ SELECT order_id, COUNT(*) FROM
 )
 GROUP BY order_id;
 ```
+We should 1 for all `order_ids`s
 
 This seems to work. Let’s materialize the result. (Alternative, you can also use the “Deduplicate” Flink Actions.)
 
@@ -195,6 +195,8 @@ FROM (
       )
 WHERE rownum = 1;
 ```
+
+> NOTE: DO NOT STOP THIS QUERY. THIS QUERY SHOULD RUN CONTINOUSLY. ADD A NEW CELL BEFORE PROCEEDING.
 
 Now let's check the `unique_orders` table definition
 
@@ -228,49 +230,6 @@ Flink SQL supports complex and flexible join operations over dynamic tables. The
 
 > You can find more information about Flink SQL Joins [here.](https://docs.confluent.io/cloud/current/flink/reference/queries/joins.html)
 
-We can look at the different types of joins available. 
-We will join `unique_orders` records and `customer` records.
-
-Join `unique_orders` with `customer` records (regular inner join). We will pick one customer as an example, in this case it is customer with `customer_id=3001`:
-
-```sql
-SELECT /*+ STATE_TTL('unique_orders'='6h', 'customers'='2d') */ 
-order_id, unique_orders.`$rowtime`, email
-FROM unique_orders
-INNER JOIN customers 
-ON unique_orders.customer_id = customers.customer_id
-WHERE unique_orders.customer_id = 3001;
-```
-
-Notice how all output rows update whenever the customer's email changes. This is expected behavior with a regular join as it doesn't have any notion of time. Like in a database, the output of a join changes for all matching rows if any of the sides of joins changes. In the context of streaming, this approach has two key disadvantages:
-
-1. If the cardinality of one of the tables is infinity (like `orders`), the state of the join will grow indefinitely. In this case, you need a state time-to-tive (state-ttl) so that Flink can clean up state eventually.
-2. Often you are looking for different join semantics, where every order is joined to the product information as of the time when the order happened and orders are never updated afterwards when the product information changes. 
-
- >Look at Time-to-live to limit the state size [here.](https://docs.confluent.io/cloud/current/flink/operate-and-deploy/best-practices.html#implement-state-time-to-live-ttl)
-TTL Hints configuraiton examples [More info here.](https://docs.confluent.io/cloud/current/flink/reference/statements/hints.html)
-
-
-A temporal join address both of these concerns, which links orders to customer records as they existed at the time when the order was created. We will do the same, use the same `customer_id=3001`. While keeping the previous cell,nn a new cell run this temporal join:
-
-```sql
-SELECT order_id, unique_orders.`$rowtime`, email
-FROM unique_orders
-INNER JOIN customers FOR SYSTEM_TIME AS OF unique_orders.`$rowtime`
-ON unique_orders.customer_id = customers.customer_id
-WHERE unique_orders.customer_id = 3001;
-```
-
-Notice that whenever a customer updates their email, previous orders remain unchanged. This behavior occurs because the join is performed based on the state of the data at the time the order was placed. In the example below, when the customer updates their email from `king.okuneva@yahoo.com` to `johnny.kling@gmail`.com, earlier orders retain the original email. This ensures that orders are enriched with the customer's information as it was at the time of the order, which is the desired outcome. Therefore,**Temporal Joins** are better in for this use case.
-
-![image](img/temporal_join.png)
-
-> *Note: In real-world scenarios, customer email addresses rarely change. This update is being made for demonstration purposes.*
-
-> NOTE: You can find more information about Temporal Joins with Flink SQL [here.](https://docs.confluent.io/cloud/current/flink/reference/queries/joins.html#temporal-joins)
-
-#### Interval Joins
-
 Interval joins are particularly useful when working with unbounded data streams. In our use case, an order is considered valid only if a corresponding payment is received. Since payments always occur after an order is placed, interval joins allow us to efficiently match orders with their respective payments based on time constraints.
 
 Create a new table that will hold valid orders.
@@ -291,8 +250,8 @@ INNER JOIN payments
 ON unique_orders.order_id = payments.order_id
 WHERE unique_orders.`$rowtime` BETWEEN payment_time - INTERVAL '10' MINUTES AND payment_time;
 ```
+> NOTE: DO NOT STOP THIS QUERY. YOU SOULD NOW HAVE 2 FLINK EDITORS RUNNING DO NOT STOP OR DELETE THEM. ADD A NEW EDITOR BEFORE PROCEEDING.
 
-Here we are using [CREATE TABLE AS SELECT(CTAS)](https://docs.confluent.io/cloud/current/flink/reference/statements/create-table.html#create-table-as-select-ctas) statement. Similar to `INSERT INTO AS SELECT`, CTAS statements run continuously, writing the output of the `SELECT` query into the newly created table, `valid_orders`.
 
 Checkout records in `valid_orders`
 ```sql
@@ -335,10 +294,13 @@ FROM valid_orders
   INNER JOIN products FOR SYSTEM_TIME AS OF valid_orders.order_time
     ON valid_orders.product_id = products.product_id;
 ```
+> NOTE: DO NOT STOP THIS QUERY. YOU SOULD NOW HAVE 2 FLINK EDITORS RUNNING DO NOT STOP OR DELETE THEM. ADD A NEW EDITOR BEFORE PROCEEDING.
 
-In this case, we used a temporal join to associate valid orders (orders with a successful payment) with product and customer information at the time the order was placed. A regular join is not suitable here because it would generate a new output for all orders every time the customer or product information changes. Since we are only interested in the product and customer details as they were at the time of the order, temporal joins are the ideal solution.
+In this case, we used a temporal join to associate valid orders (orders with a successful payment) with product and customer information at the time the order was placed.
 
-Verify that the data was joined successfully. 
+
+Verify that the data was joined successfully by creating a new Flink Editor and paste the following query into it. 
+
 ```sql
 SELECT * FROM order_customer_product;
 ```
@@ -349,27 +311,28 @@ SELECT * FROM order_customer_product;
 
 ![image](img/hld4.png)
 
-Let's sink this data product to Amazon S3:
+Let's sink this data product to Amazon OpenSearch:
 
-1. In [Confluent Cloud Connectors UI](https://confluent.cloud/go/connectors), choose your environment and your cluster as `marketplace` and click **Continue**.
-2. Search and select ** Opensearch Sink**
+1. In [Confluent Cloud Connectors UI](https://confluent.cloud/go/connectors), choose your environment (that starts with your prefix) and your cluster as `marketplace` and click **Continue**.
+2. Search and select **Opensearch Sink**
 3. Choose the `order_customer_product` topic, then click **Continue**
 4. For Kafka Credentials, choose **My account** and **Generate API Key and Download**. Click **Continue**.
 5. For Authentication:
-   1. OpenSearch URL, Username and password will be given on the day.
+   1. OpenSearch URL, Username and password will be given on the day. Leave the rest as default
 6. For Configuration:
-   1. Input Kafka record value format: **Avro**
+   1. Input Kafka record value format: Choose **Avro**
    2. Number of Indexes: **1**
    3. Index 1 Configuration:
       1. Index: `<your_name>_order_customer_product`
-      > NOTEL IT IS REALLY IMPORTANT TO REPLACE <your_name> WITH YOUR NAME.
+      > NOTE IT IS REALLY IMPORTANT TO REPLACE <your_name> WITH YOUR NAME.
       2. Topic: `order_customer_product`
    4. Click **Continue**
   
     ![OS Connector Config](./img/os_connector_config.png)
 
   5. Follow through the rest of the wizard and keep the defaults.
-  6. In a couple, of minutes you should see the conenctor in **Running** state.
+
+In a couple of minutes, you should see the conenctor in **Running** state.
 
   ![OS Connector Config](./img/os_connector_ready.png)
 
