@@ -1,6 +1,6 @@
-# Flink CC Demo 
+# Real-Time Data Processing with Confluent Cloud
 
-This is a complete end-to-end demo showcasing the power of the Confluent Cloud Data Streaming Platform. It focuses on a third-party reseller that offers products from major vendors like Amazon and Walmart.
+This is a complete end-to-end demo showcasing the power of the Confluent Cloud Data Streaming Platform (DSP). It focuses on a third-party reseller that offers products from major vendors like Amazon and Walmart.
 
 The demo illustrates how Confluent Cloud can be used to filter, enrich, and transform online orders in real time. Additionally, it demonstrates seamless integration with existing systems, specifically Amazon OpenSearch.
 
