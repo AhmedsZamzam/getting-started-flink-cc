@@ -47,11 +47,6 @@ In [Confluent Cloud Cluster UI](https://confluent.cloud/go/clusters), pick your 
 - **`products`**: Stores product data (Product Catalog).  
 
 
-### Schemas in Schema Registry
-For each topic, there should be a key and value schema. For example, for the `products` topic, you should have `products-value` and `products-key`. All schemas should be in `AVRO` format.
-
-**NOTE**: The Schema Registry is at the Environment level and can be used across multiple Kafka clusters.
-
 
 ### Flink Compute Pool
 
