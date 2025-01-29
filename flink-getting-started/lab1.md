@@ -36,7 +36,7 @@ Let's verify if all resources were created correctly and we can start using them
 
 ### Kafka Topics
 
-In [Confluent Cloud Cluster UI](https://confluent.cloud/go/clusters), pick your environment and click on the `marketplace` cluster. Check if the following topics exist in your Confluent cluster:
+In [Confluent Cloud Cluster UI](https://confluent.cloud/go/clusters), pick your environment (that starts with your intials) and click on the `marketplace` cluster. Check if the following topics exist in your Confluent cluster:
 
 - **`clicks`**: Tracks customer clicks, including product and action details.  
 - **`customers`**: Contains customer data (Customer CRM)
