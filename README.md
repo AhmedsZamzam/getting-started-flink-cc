@@ -50,9 +50,13 @@ git clone https://github.com/AhmedsZamzam/getting-started-flink-cc.git
 cd getting-started-flink-cc/demo-infrastructure
 ```
 
-In Finder, navigate to the `demo-infrastructure` directory and open the `terraform.tfvars` file for editing. Replace the placeholders with your own API keys and name.
+Open the `terraform.tfvars` file for editing. 
 
-For example, if your `confluent_cloud_api_key` is `ABCDEFG`, your c`onfluent_cloud_api_secret` is `123456789ABDCEFGHLJKLMNOP=7-23`, and your name is `Kevin`, your file should look like this:
+```
+open -a TextEdit terraform.tfvars
+```
+
+Replace the placeholders with your own API keys and name. For example, if your `confluent_cloud_api_key` is `ABCDEFG`, your c`onfluent_cloud_api_secret` is `123456789ABDCEFGHLJKLMNOP=7-23`, and your name is `Kevin`, your file should look like this:
 ```
 confluent_cloud_api_key = "ABCDEFG"
 confluent_cloud_api_secret = "123456789ABDCEFGHLJKLMNOP=7-23"
@@ -78,9 +82,13 @@ git clone https://github.com/AhmedsZamzam/getting-started-flink-cc.git
 cd getting-started-flink-cc\demo-infrastructure
 ```
 
-In File explorer, navigate to the `demo-infrastructure` directory and open the `terraform.tfvars` file for editing. Replace the placeholders with your own API keys and name.
+Open the `terraform.tfvars` file for editing. 
 
-For example, if your `confluent_cloud_api_key` is `ABCDEFG`, your c`onfluent_cloud_api_secret` is `123456789ABDCEFGHLJKLMNOP=7-23`, and your name is `Kevin`, your file should look like this:
+```
+start terraform.tfvars
+```
+
+Replace the placeholders with your own API keys and name. For example, if your `confluent_cloud_api_key` is `ABCDEFG`, your c`onfluent_cloud_api_secret` is `123456789ABDCEFGHLJKLMNOP=7-23`, and your name is `Kevin`, your file should look like this:
 
 ```
 confluent_cloud_api_key = "ABCDEFG"
