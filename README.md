@@ -55,6 +55,7 @@ Open the `terraform.tfvars` file for editing.
 ```
 open -a TextEdit terraform.tfvars
 ```
+Choose Notepad.
 
 Replace the placeholders with your own API keys and name. For example, if your `confluent_cloud_api_key` is `ABCDEFG`, your c`onfluent_cloud_api_secret` is `123456789ABDCEFGHLJKLMNOP=7-23`, and your name is `Kevin`, your file should look like this:
 ```
