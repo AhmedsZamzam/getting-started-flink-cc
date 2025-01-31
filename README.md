@@ -47,7 +47,7 @@ First, clone the repo and change directory to `demo-infrastructure`
 
 ```bash
 git clone https://github.com/AhmedsZamzam/getting-started-flink-cc.git
-cd flink-cc-demo/demo-infrastructure
+cd getting-started-flink-cc/demo-infrastructure
 ```
 
 In Finder, navigate to the `demo-infrastructure` directory and open the `terraform.tfvars` file for editing. Replace the placeholders with your own API keys and name.
@@ -75,7 +75,7 @@ First, clone the repo and change directory to `demo-infrastructure`
 
 ```bash
 git clone https://github.com/AhmedsZamzam/getting-started-flink-cc.git
-cd flink-cc-demo\demo-infrastructure
+cd getting-started-flink-cc\demo-infrastructure
 ```
 
 In File explorer, navigate to the `demo-infrastructure` directory and open the `terraform.tfvars` file for editing. Replace the placeholders with your own API keys and name.
