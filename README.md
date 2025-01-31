@@ -50,12 +50,11 @@ git clone https://github.com/AhmedsZamzam/getting-started-flink-cc.git
 cd getting-started-flink-cc/demo-infrastructure
 ```
 
-Open the `terraform.tfvars` file for editing. 
+Open and edit the `terraform.tfvars` (variables) file, use the following command in your terminal:
 
 ```
 open -a TextEdit terraform.tfvars
 ```
-Choose Notepad.
 
 Replace the placeholders with your own API keys and name. For example, if your `confluent_cloud_api_key` is `ABCDEFG`, your c`onfluent_cloud_api_secret` is `123456789ABDCEFGHLJKLMNOP=7-23`, and your name is `Kevin`, your file should look like this:
 ```
@@ -64,7 +63,7 @@ confluent_cloud_api_secret = "123456789ABDCEFGHLJKLMNOP=7-23"
 prefix = "kevin"
 ```
 
-In `demo-infrastructure` run the following commands to set up the whole demo environment
+In `demo-infrastructure` directory run the following commands in terminal to set up the whole demo environment
 
 ```bash
 terraform init
@@ -83,11 +82,12 @@ git clone https://github.com/AhmedsZamzam/getting-started-flink-cc.git
 cd getting-started-flink-cc\demo-infrastructure
 ```
 
-Open the `terraform.tfvars` file for editing. 
+Open and edit the `terraform.tfvars` (variables) file, use the following command in CMD:
 
 ```
 start terraform.tfvars
 ```
+Choose Notepad.
 
 Replace the placeholders with your own API keys and name. For example, if your `confluent_cloud_api_key` is `ABCDEFG`, your c`onfluent_cloud_api_secret` is `123456789ABDCEFGHLJKLMNOP=7-23`, and your name is `Kevin`, your file should look like this:
 
@@ -97,7 +97,7 @@ confluent_cloud_api_secret = "123456789ABDCEFGHLJKLMNOP=7-23"
 prefix = "kevin"
 ```
 
-In `demo-infrastructure` run the following commands to set up the whole demo environment
+In `demo-infrastructure` folder run the following commands in CMD to set up the whole demo environment
 
 ```bash
 terraform init
