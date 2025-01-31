@@ -281,7 +281,7 @@ CREATE TABLE order_customer_product(
   email STRING,
   brand STRING,
   product STRING,
-  sale_price DOUBLE
+  amount DOUBLE
 )WITH (
     'changelog.mode' = 'retract'
 )AS SELECT
