@@ -298,7 +298,7 @@ FROM valid_orders
   INNER JOIN products FOR SYSTEM_TIME AS OF valid_orders.order_time
     ON valid_orders.product_id = products.product_id;
 ```
-> NOTE: DO NOT STOP THIS QUERY. YOU SOULD NOW HAVE 2 FLINK EDITORS RUNNING DO NOT STOP OR DELETE THEM. ADD A NEW EDITOR BEFORE PROCEEDING.
+> NOTE: DO NOT STOP THIS QUERY. YOU SOULD NOW HAVE 3 FLINK EDITORS RUNNING DO NOT STOP OR DELETE THEM. ADD A NEW EDITOR BEFORE PROCEEDING.
 
 In this case, we used a temporal join to associate valid orders (orders with a successful payment) with product and customer information at the time the order was placed.
 
