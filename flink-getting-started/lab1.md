@@ -357,7 +357,7 @@ At the end of the pipeline, you should see the data product `order_customer_prod
 ## End of Lab.
 
 # If you don't need your infrastructure anymore, do not forget to delete the resources!
-Before destroy the entire infrastructure, first delete the connector created in this Lab.
+Before destroying the entire infrastructure, first delete the connector created in this Lab.
 
 1. In [Confluent Cloud Connectors UI](https://confluent.cloud/go/connectors), choose your environment and your cluster as `marketplace` and click **Continue**.
 2. Click on the connector you created.
